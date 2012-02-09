@@ -1,6 +1,8 @@
 # Garoon Notifier
 for Garoon Ver. ???
 
+---
+
 ## 機能
 1. 未読数表示
 2. 未読一覧表示
@@ -15,7 +17,4 @@ for Garoon Ver. ???
 ## WARNING!!
 リポジトリにはアイコン用画像であるlogo.icoが含まれていません。
 自身でDownloadしてください。
-
-**NOTE**
-ガルーンのfaviconをそのまま流用している為。
-
+(ガルーンのfaviconをそのまま流用している為。)
