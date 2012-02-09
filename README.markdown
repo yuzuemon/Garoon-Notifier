@@ -1,5 +1,5 @@
 # Garoon Notifier
-for Garoon Ver. ???
+Google Chrome Extension for Garoon Ver. ???
 
 ---
 
@@ -9,10 +9,13 @@ for Garoon Ver. ???
 3. 新着通知
 
 ### 未読数表示
+拡張アイコン上に、未読数を表示します。
 
 ### 未読一覧表示
+拡張アイコンクリック時に、未読一覧をポップアップ表示します。
 
 ### 新着通知
+ブラウザ通知にて、新着イベントを通知します。
 
 ## WARNING!!
 リポジトリにはアイコン用画像であるlogo.icoが含まれていません。
