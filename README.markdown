@@ -1,5 +1,5 @@
 # Garoon Notifier
-Google Chrome Extension for Garoon Ver. ???
+Google Chrome Extension for Garoon Ver. 2.5.2
 
 ---
 
@@ -19,5 +19,4 @@ Google Chrome Extension for Garoon Ver. ???
 
 ## WARNING!!
 リポジトリにはアイコン用画像であるlogo.icoが含まれていません。
-自身でDownloadしてください。
-(ガルーンのfaviconをそのまま流用している為。)
+自身でからDownloadしてください。

@@ -3,7 +3,7 @@
   "version": "1.0",
   "icons": {"128": "logo.ico"},
   "content_scripts" : [{
-    "js": ["garoon_info_viewer.js", "garoon_notifier.js"],
+    "js": ["garoon_info_viewer.js"],
     "matches": ["http://portal/cgi-bin/cbgrn/grn.cgi/schedule/view*"]
   }],
   "background_page": "background.html",

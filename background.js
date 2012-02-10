@@ -2,24 +2,6 @@ var URL = "http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list";
 var LIMIT = 4;
 var LIMIT_COUNT = Math.pow(10, LIMIT);
 
-function write(html){
-  window.document.innerHTML = html;
-}
-
-function popup(){
-  var xhr = new XMLHttpRequest();
-  xhr.open('Get', URL, true);
-  xhr.onload = function(){
-    var res = xhr.responseXML;
-    var unreadTd = res.querySelecter('.list_column');
-    write(unreadTD);
-  };
-  xhr.onerror = function(){
-    write('<a href="http://portal">');
-  };
-  xhr.send(null);
-}
-
 function check(){
   var xhr = new XMLHttpRequest();
   xhr.open('Get', URL, true);
@@ -56,6 +38,7 @@ function notation(count, i){
 }
 
 check();
+
 window.setInterval(function(){
   check();
 }, 60 * 1000);
