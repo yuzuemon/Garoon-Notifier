@@ -12,5 +12,5 @@
     "default_icon": "logo.ico",
     "popup": "popup.html"
   },
-  "permissions": ["http://portal/"]
+  "permissions": ["http://portal/","notifications"]
 }

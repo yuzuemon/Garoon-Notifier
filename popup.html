@@ -2,19 +2,22 @@
 <html>
   <style type="text/css">
     body{
+      padding: 0;
+      line-height:1.4;
+      color:#333;
+      font-family:Arial, sans-serif;
+      font-size:0.9em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,.3);
       min-width: 7em;
     }
   </style>
-  <script src="./check.js"></script>
-  <script>
-
-  </script>
+  <script src="./popup.js"></script>
   <body>
-    <div>
-      <a href="http://portal/cgi-bin/cbgrn/grn.cgi" target="_brank"><img src="http://portal/cbgrn/grn/image/cybozu/garoon2.ico" width="16px" />Galloon</a><br />
+    <div id="header">
+      <a href="http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list" target="_blank">未読一覧ページへ</a>
     </div>
-    <!--
-      XSSの脆弱性アリとか言わないで・・・
-    -->
+    <hr />
+    <div id="wrapper"></div>
+    <div id="footer"></div>
   </body>
 </html>
