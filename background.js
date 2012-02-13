@@ -1,33 +1,30 @@
-
 // badge
 function check(){
-  var xhr = new XMLHttpRequest();
-  xhr.open('Get', URL, true);
-  xhr.onload = function(){
-    var res = xhr.responseText;
-    var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
-    if(count >= 0){
-      update(String(count));
-      setTimeout(check, 60 * 1000);
+  var checkBadge = function(res){
+    if(res){
+      var unreadCount = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
+      if(unreadCount >= 0){
+        updateBadge(unreadCount);
+        setTimeout(check, 60 * 1000);
+      } else {
+        updateBadge('!');
+      }
     } else {
-      update('!');
+      updateBadge('!');
     }
-  };
-  xhr.onerror = function(){
-    update('!');
-  };
-  xhr.send(null);
+  }
+  get(UNREAD_URL, checkBadge);
 }
 
-function update(count){
+function updateBadge(count){
   if(parseInt(count, 10) >= LIMIT_COUNT){
     count = notation(parseInt(count,10), LIMIT+1);
   }
-  chrome.browserAction.setBadgeText({text: count});
-  if (BADGECOUNT != count){
-    notification(BADGECOUNT - count);
+  chrome.browserAction.setBadgeText({text: String(count)});
+  if (UNREAD_COUNT != count){
+    notification(UNREAD_COUNT - count);
   }
-  BADGECOUNT = count;
+  UNREAD_COUNT = count;
 }
 
 function notation(count, i){
@@ -42,7 +39,7 @@ function notation(count, i){
 // webkitNotification
 function getTable(count){
   var xhr = new XMLHttpRequest();
-  xhr.open('Get', URL, true);
+  xhr.open('Get', UNREAD_URL, true);
   xhr.onload = function(){
     var res = xhr.responseText;
     var unreadTable = res.match(/<table class="list_column">[\s\S]*?<\/table>/)[0];
