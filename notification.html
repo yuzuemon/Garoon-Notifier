@@ -5,10 +5,18 @@
 </head>
 <body id='alias'>
   <div class='base'>
-    <h1></h1>
+    <span id='status'></span>
+    <span id='title'></span>
+    <hr />
+    <span id='user'></span>
+    <span id='time'></span>
     <script>
       var bg = chrome.extension.getBackgroundPage();
-      d.querySelector('h1').innerText = bg.message;
+      console.log(bg.notification)
+      d.querySelector('#status').innerText = '[' + bg.notification.status + ']';
+      d.querySelector('#title').innerText = bg.notification.title;
+      d.querySelector('#user').innerText = bg.notification.user;
+      d.querySelector('#time').innerText = bg.notification.time;
     </script>
     <a href=""></a>
   </div>

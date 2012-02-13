@@ -17,7 +17,7 @@ function get(url, execute){
     execute(res);
   };
   xhr.onerror = function(){
-    return false;
+    execute();
   };
   xhr.send('');
 }
