@@ -1,25 +1,42 @@
 <html lang='ja'>
 <head>
   <title>Garoon Notifier</title>
+  <style type="text/css">
+    body{
+      padding: 0;
+      line-height:1.4;
+      color:#333;
+      font-family:Arial, sans-serif;
+      font-size:0.9em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,.3);
+      min-width: 7em;
+    }
+    #footer{
+      text-align: right;
+    }
+  </style>
   <script src="./util.js"></script>
 </head>
 <body id='alias'>
   <div class='base'>
-    <span id='status'></span>
-    <span id='title'></span>
+    <div id='event'>
+      [<span id='status'></span>] <span id='title'></span>
+    </div>
+    <div id='footer'>
+      <span id='time'></span> <span id='user'></span>
+    </div>
     <hr />
-    <span id='user'></span>
-    <span id='time'></span>
-    <script>
-      var bg = chrome.extension.getBackgroundPage();
-      console.log(bg.notification)
-      d.querySelector('#status').innerText = '[' + bg.notification.status + ']';
-      d.querySelector('#title').innerText = bg.notification.title;
-      d.querySelector('#user').innerText = bg.notification.user;
-      d.querySelector('#time').innerText = bg.notification.time;
-    </script>
-    <a href=""></a>
+    <a id='link' href='' target='_blank'>見る</a>
   </div>
 </body>
+<script>
+  var BackGround = chrome.extension.getBackgroundPage();
+  var notice = BackGround.notification.pop();
+  d.querySelector('#status').innerText = notice.status;
+  d.querySelector('#title').innerText = notice.title;
+  d.querySelector('#user').innerText = notice.user;
+  d.querySelector('#time').innerText = notice.time;
+  d.querySelector('#link').href = notice.link;
+</script>
 </html>
 

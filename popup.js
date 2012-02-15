@@ -2,7 +2,6 @@ w.addEventListener('load', function(){
   var view_unread = d.querySelector('#view_unread');
   var view_today  = d.querySelector('#view_today');
   var view_portal = d.querySelector('#view_portal');
-  console.log(view_unread)
 
   view_unread.addEventListener('click',function(){
     popup();
@@ -22,7 +21,9 @@ function write(html){
 
 function popup(){
   var popupXhr = function(res){
-    if(res){
+    console.log('popup')
+    console.log(res)
+    if(res && res.search(/<table class="list_column">[\s\S]*?<\/table>/) != -1){
       var unreadTable = res.match(/<table class="list_column">[\s\S]*?<\/table>/)[0];
       unreadTable = unreadTable.replace(/<script .*?>/g, '');
       unreadTable = unreadTable.replace(/<button .*?>/g, '');

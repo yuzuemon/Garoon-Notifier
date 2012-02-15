@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta charset="UTF-8" /> 
+<title>Options</title>
+<style type="text/css">
+body {
+    width: 250px;
+}
+p {
+    font-size: 0.8em;
+}
+</style>
+</head>
+<body>
+<p>お知らせ音:
+<select id="sound">
+<option value="false">OFF</option>
+<option value="true">ON</option>
+</select></p>
+<p>音量:<input type="range" id="volume" min="0" max="100" /></p>
+<p>シンプル表示：
+<select id="simplify">
+<option value="true">ON</option>
+<option value="false">OFF</option>
+</select></p>
+<p>震度
+<select id="scale">
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+</select>以上をお知らせする</p>
+<p>表示
+<select id="close">
+<option value="0">を続ける</option>
+<option value="3">3秒後に閉じる</option>
+<option value="5">5秒後に閉じる</option>
+<option value="10">10秒後に閉じる</option>
+</select></p>
+<p>※テスト中の機能です</p>
+<script type="text/javascript" src="./js/options.js"></script>
+</body>
+</html>
