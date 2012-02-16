@@ -11,13 +11,27 @@
       text-shadow: 2px 2px 5px rgba(0,0,0,.3);
       min-width: 7em;
     }
+    .blue{
+      background: -webkit-gradient(linear, left top, right bottom, from(#ccf), to(#00f));
+    }
+    .yellow{
+      background: -webkit-gradient(linear, left top, right bottom, from(#ccf), to(#ff0));
+    }
+    .red{
+      background: -webkit-gradient(linear, left top, right bottom, from(#ccf), to(#00f));
+    }
+    .green{
+      background-image: linear-gradient(bottom, rgb(43,7,142) 37%, rgb(69,33,171) 69%, rgb(97,60,206) 85%);
+      background-image: -o-linear-gradient(bottom, rgb(43,7,142) 37%, rgb(69,33,171) 69%, rgb(97,60,206) 85%);
+      background-image: -webkit-linear-gradient(bottom, rgb(52,180,160) 35%, rgb(78,216,192) 68%, rgb(110,255,231) 84%);
+    }
     #footer{
       text-align: right;
     }
   </style>
   <script src="./util.js"></script>
 </head>
-<body id='alias'>
+<body>
   <div class='base'>
     <div id='event'>
       [<span id='status'></span>] <span id='title'></span>
@@ -32,7 +46,18 @@
 <script>
   var BackGround = chrome.extension.getBackgroundPage();
   var notice = BackGround.notification.pop();
-  d.querySelector('#status').innerText = notice.status;
+  var status = notice.status;
+  if(status == '登録'){
+    d.body.class = 'blue';
+  } else if (status == '変更') {
+    d.body.class = 'yellow';
+  } else if (status == '削除') {
+    d.body.class = 'red';
+  } else {
+    d.body.className = 'green';
+  }
+  console.log(d.body.class);
+  d.querySelector('#status').innerText = status;
   d.querySelector('#title').innerText = notice.title;
   d.querySelector('#user').innerText = notice.user;
   d.querySelector('#time').innerText = notice.time;

@@ -30,19 +30,19 @@ function notation(count, i){
 function check(){
   var checkXhr = function(res){
     if(res && res.search(/[0-9]+件/) != -1){
-      var unreadCount = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
-      if(unreadCount >= 0){
-        update(unreadCount);
-        setTimeout(check, 60 * 1000);
-      } else {
-        update('!');
+      var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
+      if(UNREAD_COUNT != count){
+        update(count);
       }
     } else {
       update('!');
     }
+    UNREAD_COUNT = count;
+    setTimeout(check, 60 * 1000);
   }
   get(UNREAD_URL, checkXhr);
 }
+
 
 function update(count){
   if(parseInt(count, 10) >= LIMIT_COUNT){
@@ -57,13 +57,11 @@ function update(count){
   } else {
     chrome.browserAction.setBadgeText({text: String(count)});
   }
-  //test
+  // てすと
   // notify(1);
-  if (UNREAD_COUNT != count){
-    notify(UNREAD_COUNT - count);
-  }
-  UNREAD_COUNT = count;
+  notify(UNREAD_COUNT - count);
 }
+
 
 function notify(count){
   var notifyXhr = function(res){
@@ -80,23 +78,32 @@ function notify(count){
     console.log(unreadEvents)
     console.log(unreadEvents.length)
 
+
     // show notification
     if (typeof opera != 'undefined'){
 
     } else {
-      for(var i = 0, len = unreadEvents.length; len > i; i+=5){
-        var obj = {};
-        obj.title  = unreadEvents[i+1].replace(/<.*?>/g, '');
-        obj.status = unreadEvents[i+2].replace(/<.*?>/g, '');
-        obj.user   = unreadEvents[i+3].replace(/<.*?>/g, '');
-        obj.time   = unreadEvents[i+4].replace(/<.*?>/g, '');
-        obj.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/, '')[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
-        BackGround.notification.push(obj);
-        webkitNotifications.createHTMLNotification('/notification.html').show();
+      for(var i = 0, l = unreadEvents.length; l > i; i+=5){
+        var info = {};
+        info.title  = unreadEvents[i+1].replace(/<.*?>/g, '');
+        info.status = unreadEvents[i+2].replace(/<.*?>/g, '');
+        info.user   = unreadEvents[i+3].replace(/<.*?>/g, '');
+        info.time   = unreadEvents[i+4].replace(/<.*?>/g, '');
+        info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/, '')[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
+        BackGround.notification.push(info);
       }
+      showNotify();
     }
   }
   get(UNREAD_URL, notifyXhr);
+}
+
+
+function showNotify(){
+  if(BackGround.notification.length > 0){
+    webkitNotifications.createHTMLNotification('/notification.html').show();
+    setTimeout(showNotify, 1000);
+  }
 }
 
 check();
