@@ -59,7 +59,11 @@ function update(count){
   }
   // てすと
   // notify(1);
-  notify(UNREAD_COUNT - count);
+  if(UNREAD_COUNT == '!'){
+    notify(count);
+  } else {
+    notify(UNREAD_COUNT - count);
+  }
 }
 
 
@@ -75,9 +79,6 @@ function notify(count){
       unreadTable = unreadTable.replace(/javascript:popupWin\('/g, 'javascript:window.open(\'http://portal');
       unreadEvents = unreadTable.match(/<td.*?<\/td>/gm);
     }
-    console.log(unreadEvents)
-    console.log(unreadEvents.length)
-
 
     // show notification
     if (typeof opera != 'undefined'){
@@ -92,17 +93,17 @@ function notify(count){
         info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/, '')[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
         BackGround.notification.push(info);
       }
-      showNotify();
+      showNotify(count);
     }
   }
   get(UNREAD_URL, notifyXhr);
 }
 
 
-function showNotify(){
-  if(BackGround.notification.length > 0){
+function showNotify(count){
+  if(count > 0 && BackGround.notification.length > 0){
     webkitNotifications.createHTMLNotification('/notification.html').show();
-    setTimeout(showNotify, 1000);
+    setTimeout(showNotify(--count), 1000);
   }
 }
 

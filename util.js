@@ -3,7 +3,7 @@ var UNREAD_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list'
 
 var LIMIT = 4;
 var LIMIT_COUNT = Math.pow(10, LIMIT);
-var UNREAD_COUNT = 0;
+var UNREAD_COUNT = '!';
 
 var w = window;
 var d = w.document;
