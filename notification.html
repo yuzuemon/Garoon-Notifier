@@ -1,67 +1,56 @@
 <html lang='ja'>
 <head>
   <title>Garoon Notifier</title>
-  <style type="text/css">
-    body{
-      padding: 0;
-      line-height:1.4;
-      color:#333;
-      font-family:Arial, sans-serif;
-      font-size:0.9em;
-      text-shadow: 2px 2px 5px rgba(0,0,0,.3);
-      height: 80px;
-    }
-    .blue{
-      background: -webkit-gradient(linear, left top, right bottom, from(#ccf), to(#00f));
-    }
-    .yellow{
-      background: -webkit-gradient(linear, left top, right bottom, from(#ccf), to(#ff0));
-    }
-    .red{
-      background: -webkit-gradient(linear, left top, right bottom, from(#ccf), to(#00f));
-    }
-    .green{
-      background-image: linear-gradient(bottom, rgb(43,7,142) 37%, rgb(69,33,171) 69%, rgb(97,60,206) 85%);
-      background-image: -o-linear-gradient(bottom, rgb(43,7,142) 37%, rgb(69,33,171) 69%, rgb(97,60,206) 85%);
-      background-image: -webkit-linear-gradient(bottom, rgb(52,180,160) 35%, rgb(78,216,192) 68%, rgb(110,255,231) 84%);
-    }
-    #footer{
-      text-align: right;
-    }
-  </style>
-  <script src="./util.js"></script>
+  <link rel='stylesheet' type='text/css' href='hoge.css' />
+  <script src='./util.js'></script>
 </head>
 <body>
   <div class='base'>
-    <div id='event'>
-      [<span id='status'></span>] <span id='title'></span>
+    <div>
+      <span id='label'></span> <span id='event'></span>
     </div>
-    <div id='footer'>
-      <span id='time'></span> <span id='user'></span>
+    <div>
+      <div id='left'>
+        <span id='status'> </span>
+      </div>
+      <div id='right'>
+        <span id='time'></span> : <span id='user'></span>
+      </div>
     </div>
     <hr />
-    <a id='link' href='' target='_blank'>見る</a>
+    <div>
+      <a id='link' href='' target='_blank'><span id='view'>View</span></a></span>
+    </div>
   </div>
 </body>
 <script>
-  var BackGround = chrome.extension.getBackgroundPage();
-  var notice = BackGround.notification.pop();
-  var status = notice.status;
-  if(status == '登録'){
-    d.body.class = 'blue';
-  } else if (status == '変更') {
-    d.body.class = 'yellow';
-  } else if (status == '削除') {
-    d.body.class = 'red';
-  } else {
-    d.body.className = 'green';
-  }
-  console.log(d.body.class);
-  d.querySelector('#status').innerText = status;
-  d.querySelector('#title').innerText = notice.title;
-  d.querySelector('#user').innerText = notice.user;
-  d.querySelector('#time').innerText = notice.time;
-  d.querySelector('#link').href = notice.link;
+  (function(){
+    window.addEventListener('load', function(){
+      var BackGround = chrome.extension.getBackgroundPage();
+      var notice = BackGround.notification.pop();
+      console.log(notice)
+      var status = notice.status;
+      var lebel = d.querySelector('#label');
+      if(status == '登録'){
+        label.className = 'label-new';
+        label.innerHTML = 'New';
+      } else if (status == '変更') {
+        label.className = 'label-change';
+        label.innerHTML = 'Change';
+      } else if (status == '削除') {
+        label.className = 'label-delete';
+        label.innerHTML = 'Delete';
+      } else {
+        label.className = 'label-comment';
+        label.innerHTML = 'Comment';
+        d.querySelector('#status').innerText = notice.status;
+      }
+      d.querySelector('#event').innerText = notice.event;
+      d.querySelector('#time').innerText = notice.time;
+      d.querySelector('#user').innerText = notice.user;
+      d.querySelector('#link').href = notice.link;
+    }, false);
+  })();
 </script>
 </html>
 

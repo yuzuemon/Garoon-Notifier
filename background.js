@@ -8,7 +8,6 @@ if(typeof opera != 'undefined'){
     },
     popup: {
       href: 'popup.html',
-      width: 370
     }
   }
   var extensionButton = opera.contexts.toolbar.createItem(ToolbarUIItemProperties);
@@ -46,14 +45,10 @@ function check(){
 
 function update(count){
   if(parseInt(count, 10) >= LIMIT_COUNT){
-    count = notation(parseInt(count,10), LIMIT+1);
+    count = notation(parseInt(count,10), PLACE_LIMIT+1);
   }
-  console.log(count)
   if(typeof opera != 'undefined'){
-    console.log('opera badge update')
-    console.log(ToolbarUIItemProperties.badge.textContent)
-    ToolbarUIItemProperties.badge.textContent = String('aa');
-    // ToolbarUIItemProperties.badge.textContent = String(count);
+    extensionButton.badge.textContent = String(count);
   } else {
     chrome.browserAction.setBadgeText({text: String(count)});
   }
@@ -86,13 +81,14 @@ function notify(count){
     } else {
       for(var i = 0, l = unreadEvents.length; l > i; i+=5){
         var info = {};
-        info.title  = unreadEvents[i+1].replace(/<.*?>/g, '');
+        info.event  = unreadEvents[i+1].replace(/<.*?>/g, '');
         info.status = unreadEvents[i+2].replace(/<.*?>/g, '');
         info.user   = unreadEvents[i+3].replace(/<.*?>/g, '');
         info.time   = unreadEvents[i+4].replace(/<.*?>/g, '');
         info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/, '')[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
         BackGround.notification.push(info);
       }
+      if(count > NOTICE_LIMIT) count = NOTICE_LIMIT;
       showNotify(count);
     }
   }
@@ -102,6 +98,9 @@ function notify(count){
 
 function showNotify(count){
   if(count > 0 && BackGround.notification.length > 0){
+    // var info = BackGround.notification.pop();
+    // var text = info.title + info.status + info.time;
+    // webkitNotifications.createNotification('', '', text).show();
     webkitNotifications.createHTMLNotification('/notification.html').show();
     setTimeout(showNotify(--count), 1000);
   }

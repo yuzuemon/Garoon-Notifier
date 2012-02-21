@@ -27,6 +27,7 @@ function popup(){
       var unreadTable = res.match(/<table class="list_column">[\s\S]*?<\/table>/)[0];
       unreadTable = unreadTable.replace(/<script .*?>/g, '');
       unreadTable = unreadTable.replace(/<button .*?>/g, '');
+      unreadTable = unreadTable.replace(/<input .*?>/g, '');
       unreadTable = unreadTable.replace(/<img .*?>/g, '');
       unreadTable = unreadTable.replace(/<a class="" href="\/cgi-bin/g, '<a target="_blank" href="http://portal/cgi-bin');
       unreadTable = unreadTable.replace(/javascript:popupWin\('/g, 'javascript:window.open(\'http://portal');

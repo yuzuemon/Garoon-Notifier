@@ -1,47 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <style type="text/css">
-    body{
-      padding: 0;
-      line-height:1.4;
-      color:#333;
-      font-family:Arial, sans-serif;
-      font-size:0.9em;
-      text-shadow: 2px 2px 5px rgba(0,0,0,.3);
-      min-width: 7em;
-      width: 400px;
-    }
-    .blue{
-      background: -webkit-gradient(linear, left top, right bottom, from(#0ff), to(#06f));
-    }
-    .yellow{
-      background: -webkit-gradient(linear, left top, right bottom, from(#990), to(#066));
-    }
-    .red{
-      background: -webkit-gradient(linear, left top, right bottom, from(#990), to(#066));
-    }
-    #view_selector > li{
-      color: blue;
-      display: inline;
-      float: left;
-      cursor: pointer;
-      margin-right: 5px;
-    }
-  </style>
-  <script src="./util.js"></script>
-  <script src="./popup.js"></script>
+  <link rel='stylesheet' type='text/css' href='hoge.css' />
+  <link rel='stylesheet' type='text/css' href='popup.css' />
+  <script src='./util.js'></script>
+  <script src='./popup.js'></script>
   <body>
-    <div id="header">
-      <ol id='view_selector'>
-        <li><span id='view_unread'>未読一覧</span></li>
-        <li><span id='view_today'>今日一日</span></li>
-        <li><span id='view_portal'>Top</span></li>
-      </ol>
+    <div id='header'>
+      <div class='btn-group'>
+        <a href='' class='btn'>未読</a>
+        <a href='' class='btn'>今日</a>
+        <a href='' class='btn'>Top</a>
+      </div>
     </div>
     <hr />
-    <div id="wrapper"></div>
-    <div id="footer">
-      <a href="http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list" target="_blank">未読一覧ページへ</a>
+    <div id='wrapper'></div>
+    <hr />
+    <div id='footer'>
+      <a href='http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list' target='_blank'>未読一覧ページへ</a>
     </div>
   </body>
 </html>
