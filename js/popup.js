@@ -1,7 +1,6 @@
 w.addEventListener('load', function(){
   var view_unread = d.querySelector('#view_unread');
   var view_today  = d.querySelector('#view_today');
-  // var view_portal = d.querySelector('#view_portal');
 
   view_unread.addEventListener('click',function(){
     unread();
@@ -9,12 +8,6 @@ w.addEventListener('load', function(){
   view_today.addEventListener('click',function(){
     today();
   }, false);
-  /*
-  view_portal.addEventListener('click',function(){
-    portal();
-  }, false);
-  */
-
 }, false);
 
 function write(html){
