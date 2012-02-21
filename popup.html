@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang='ja'>
+<head>
+  <meta charset='UTF-8' />
+  <title>Garoon Notifier Popup</title>
   <link rel='stylesheet' type='text/css' href='./css/common.css' />
   <link rel='stylesheet' type='text/css' href='./css/popup.css' />
   <script src='./js/util.js'></script>
   <script src='./js/popup.js'></script>
-  <body>
-    <div id='header'>
-      <div class='btn-group'>
-        <a href='' class='btn'>未読</a>
-        <a href='' class='btn'>今日</a>
-        <a href='' class='btn'>Top</a>
-      </div>
+</head>
+<body>
+  <div id='header'>
+    <div class='btn-group'>
+      <span id='view_unread' href='' class='btn'>未読一覧</span>
+      <span id='view_today'  href='' class='btn'>今日の予定</span>
     </div>
-    <hr />
-    <div id='wrapper'></div>
-    <hr />
-    <div id='footer'>
-      <a href='http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list' target='_blank'>未読一覧ページへ</a>
-    </div>
-  </body>
+  </div>
+  <hr />
+  <div id='wrapper'></div>
+  <hr />
+  <div id='footer'>
+    <a href='http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list' target='_blank'>未読一覧ページへ</a>
+  </div>
+</body>
 </html>

@@ -1,17 +1,19 @@
 w.addEventListener('load', function(){
   var view_unread = d.querySelector('#view_unread');
   var view_today  = d.querySelector('#view_today');
-  var view_portal = d.querySelector('#view_portal');
+  // var view_portal = d.querySelector('#view_portal');
 
   view_unread.addEventListener('click',function(){
-    popup();
+    unread();
   }, false);
   view_today.addEventListener('click',function(){
-    alert('まだつくってない');
+    today();
   }, false);
+  /*
   view_portal.addEventListener('click',function(){
-    alert('まだつくってない');
+    portal();
   }, false);
+  */
 
 }, false);
 
@@ -19,10 +21,8 @@ function write(html){
   d.querySelector('#wrapper').innerHTML = html;
 }
 
-function popup(){
-  var popupXhr = function(res){
-    console.log('popup')
-    console.log(res)
+function unread(){
+  var unreadXhr = function(res){
     if(res && res.search(/<table class="list_column">[\s\S]*?<\/table>/) != -1){
       var unreadTable = res.match(/<table class="list_column">[\s\S]*?<\/table>/)[0];
       unreadTable = unreadTable.replace(/<script .*?>/g, '');
@@ -38,10 +38,34 @@ function popup(){
         links[i].target = "_blank";
       }
     } else {
-      write('<a href=' + PORTAL_URL + '>ログイン画面</a>へ');
+      write('<a target="_blank" href=' + PORTAL_URL + '>ログイン画面</a>へ');
     }
   }
-  get(UNREAD_URL, popupXhr);
+  get(UNREAD_URL, unreadXhr);
 }
 
-popup();
+function today(){
+  var todayXhr = function(res){
+    if(res && res.search(/<tr class="schedule_user_tr">[\s\S]*?<\/td>/) != -1){
+      console.log(res);
+      var todayTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/)[0];
+      todayTd = todayTd.replace(/<script .*?>/g, '');
+      todayTd = todayTd.replace(/<button .*?>/g, '');
+      todayTd = todayTd.replace(/<input .*?>/g, '');
+      todayTd = todayTd.replace(/<img .*?>/g, '');
+      todayTd = todayTd.replace(/javascript:popupWin\('/g, 'javascript:window.open(\'http://portal');
+      console.log(todayTd);
+      write(todayTd);
+
+      var links = d.querySelector('a');
+      for (var i = 0, len = links.length; len > i; i++){
+        links[i].target = "_blank";
+      }
+    } else {
+      write('<a target="_blank" href=' + PORTAL_URL + '>ログイン画面</a>へ');
+    }
+  }
+  get(PORTAL_URL, todayXhr);
+}
+
+unread();

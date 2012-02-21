@@ -4,10 +4,11 @@
   "description": "Browser Extension for Garoon ver 2.5.2",
   "icons": {"128": "logo.ico"},
   "content_scripts" : [{
-    "js": ["garoon_info_viewer.js"],
+    "js": ["./js/background.js"],
     "matches": ["http://portal/cgi-bin/cbgrn/grn.cgi/schedule/view*"]
   }],
-  "background_page": "background.html",
+  "background_page": "index.html",
+  "options_page": "options.html",
   "browser_action": {
     "default_title": "Garoon Notifier",
     "default_icon": "logo.ico",

@@ -26,8 +26,8 @@ function notation(count, i){
   }
 }
 
-function check(){
-  var checkXhr = function(res){
+function badge(){
+  var badgeXhr = function(res){
     if(res && res.search(/[0-9]+件/) != -1){
       var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
       if(UNREAD_COUNT != count){
@@ -37,9 +37,9 @@ function check(){
       update('!');
     }
     UNREAD_COUNT = count;
-    setTimeout(check, 60 * 1000);
+    setTimeout(badge, 60 * 1000);
   }
-  get(UNREAD_URL, checkXhr);
+  get(UNREAD_URL, badgeXhr);
 }
 
 
@@ -106,4 +106,4 @@ function showNotify(count){
   }
 }
 
-check();
+badge();
