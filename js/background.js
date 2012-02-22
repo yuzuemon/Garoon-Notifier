@@ -1,5 +1,5 @@
 if(typeof opera != 'undefined'){
-  var ToolbarUIItemProperties = {
+  var itemProperties = {
     title: 'Garoon Notifier',
     icon: 'logo.ico',
     badge: {
@@ -10,8 +10,12 @@ if(typeof opera != 'undefined'){
       href: 'popup.html',
     }
   }
-  var extensionButton = opera.contexts.toolbar.createItem(ToolbarUIItemProperties);
+  var extensionButton = opera.contexts.toolbar.createItem(itemProperties);
   opera.contexts.toolbar.addItem(extensionButton);
+  var tab = opera.extension.tabs.getFocused();
+  console.log(tab)
+  console.log(tab.title)
+  console.log(tab.url)
 } else {
   var BackGround = this;
   BackGround.notification = [];
