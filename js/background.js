@@ -1,4 +1,4 @@
-if(typeof opera != 'undefined'){
+if(typeof opera === 'object'){
   var itemProperties = {
     title: 'Garoon Notifier',
     icon: 'logo.ico',
@@ -12,10 +12,6 @@ if(typeof opera != 'undefined'){
   }
   var extensionButton = opera.contexts.toolbar.createItem(itemProperties);
   opera.contexts.toolbar.addItem(extensionButton);
-  var tab = opera.extension.tabs.getFocused();
-  console.log(tab)
-  console.log(tab.title)
-  console.log(tab.url)
 } else {
   var BackGround = this;
   BackGround.notification = [];
@@ -51,7 +47,7 @@ function update(count){
   if(parseInt(count, 10) >= LIMIT_COUNT){
     count = notation(parseInt(count,10), PLACE_LIMIT+1);
   }
-  if(typeof opera != 'undefined'){
+  if(typeof opera === 'object'){
     extensionButton.badge.textContent = String(count);
   } else {
     chrome.browserAction.setBadgeText({text: String(count)});
@@ -80,7 +76,7 @@ function notify(count){
     }
 
     // show notification
-    if (typeof opera != 'undefined'){
+    if (typeof opera === 'object'){
 
     } else {
       for(var i = 0, l = unreadEvents.length; l > i; i+=5){
