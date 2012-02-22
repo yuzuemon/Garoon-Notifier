@@ -8,6 +8,8 @@ if(typeof opera === 'object'){
     },
     popup: {
       href: 'popup.html',
+      width: '500px',
+      height: '230px'
     }
   }
   var extensionButton = opera.contexts.toolbar.createItem(itemProperties);
