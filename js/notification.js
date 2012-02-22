@@ -1,7 +1,7 @@
 (function(){
   window.addEventListener('load', function(){
     var BackGround = chrome.extension.getBackgroundPage();
-    var notice = BackGround.notification.pop();
+    var notice = BackGround.notification.shift();
     var status = notice.status;
     var lebel = d.querySelector('#label');
     if(status == '登録'){
