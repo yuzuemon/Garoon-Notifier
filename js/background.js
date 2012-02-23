@@ -59,7 +59,7 @@ function update(count){
   if(UNREAD_COUNT == '!'){
     notify(count);
   } else {
-    notify(UNREAD_COUNT - count);
+    notify(count - UNREAD_COUNT);
   }
 }
 
