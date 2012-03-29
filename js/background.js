@@ -58,8 +58,10 @@ function update(count){
   // notify(1);
   if(UNREAD_COUNT == '!'){
     notify(count);
+    localStorage.unreadCount = count;
   } else {
     notify(count - UNREAD_COUNT);
+    localStorage.unreadCount = count - UNREAD_COUNT;
   }
 }
 
@@ -81,6 +83,7 @@ function notify(count){
     if (typeof opera === 'object'){
 
     } else {
+      BackGround.notification = [];
       for(var i = 0, l = unreadEvents.length; l > i; i+=5){
         var info = {};
         info.event  = unreadEvents[i+1].replace(/<.*?>/g, '');
