@@ -6,10 +6,10 @@ w.addEventListener('load', function(){
     unread();
   }, false);
   view_today.addEventListener('click',function(){
-    today();
+    oneday(true);
   }, false);
   view_tomorrow.addEventListener('click',function(){
-    tomorrow();
+    oneday(false);
   }, false);
 }, false);
 
@@ -40,48 +40,25 @@ function unread(){
   get(UNREAD_URL, unreadXhr);
 }
 
-function today(){
-  var todayXhr = function(res){
+function oneday(isToday){
+  var onedayXhr = function(res){
     if(res && res.search(/<tr class="schedule_user_tr">[\s\S]*?<\/td>/) != -1){
-      var todayTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/)[0];
-      todayTd = todayTd.replace(/<script .*?>/g, '');
-      todayTd = todayTd.replace(/<button .*?>/g, '');
-      todayTd = todayTd.replace(/<input .*?>/g, '');
-      todayTd = todayTd.replace(/<img .*?>/g, '');
-      todayTd = todayTd.replace(/javascript:popupWin\('/g, 'javascript:window.open(\'http://portal');
-      write(todayTd);
-
-      var links = d.querySelector('a');
-      for (var i = 0, len = links.length; len > i; i++){
-        links[i].target = "_blank";
+      if (isToday){
+        var onedayTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/)[0];
+      } else {
+        var onedayTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/g)[1];
       }
+      onedayTd = onedayTd.replace(/<script .*?>/g, '');
+      onedayTd = onedayTd.replace(/<button .*?>/g, '');
+      onedayTd = onedayTd.replace(/<input .*?>/g, '');
+      onedayTd = onedayTd.replace(/<img .*?>/g, '');
+      onedayTd = onedayTd.replace(/<a href="\/cgi-bin/g, '<a target="_blank" href="http://portal/cgi-bin');
+      write(onedayTd);
     } else {
       write('<a target="_blank" href=' + PORTAL_URL + '>ログイン画面</a>へ');
     }
   }
-  get(PORTAL_URL, todayXhr);
-}
-
-function tomorrow(){
-  var todayXhr = function(res){
-    if(res && res.search(/<tr class="schedule_user_tr">[\s\S]*?<\/td>/) != -1){
-      var tomorrowTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/g)[1];
-      tomorrowTd = tomorrowTd.replace(/<script .*?>/g, '');
-      tomorrowTd = tomorrowTd.replace(/<button .*?>/g, '');
-      tomorrowTd = tomorrowTd.replace(/<input .*?>/g, '');
-      tomorrowTd = tomorrowTd.replace(/<img .*?>/g, '');
-      tomorrowTd = tomorrowTd.replace(/javascript:popupWin\('/g, 'javascript:window.open(\'http://portal');
-      write(tomorrowTd);
-
-      var links = d.querySelector('a');
-      for (var i = 0, len = links.length; len > i; i++){
-        links[i].target = "_blank";
-      }
-    } else {
-      write('<a target="_blank" href=' + PORTAL_URL + '>ログイン画面</a>へ');
-    }
-  }
-  get(PORTAL_URL, todayXhr);
+  get(PORTAL_URL, onedayXhr);
 }
 
 unread();
