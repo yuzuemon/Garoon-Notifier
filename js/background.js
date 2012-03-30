@@ -48,7 +48,7 @@ function updateBadge(count){
   // てすと
   // notify(1);
   // 初回通信成功時は通知しない
-  if(UNREAD_COUNT != '!'){
+  if(sessionStorage.unreadCount != '!'){
     notify(count - sessionStorage.unreadCount);
   }
 }

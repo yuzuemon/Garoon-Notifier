@@ -20,6 +20,5 @@ Extensionアイコンクリック時に、未読一覧をポップアップ表�
 ブラウザ通知にて、新着イベントを通知します。
 
 
-## WARNING!!
-リポジトリにはアイコン用画像であるlogo.icoが含まれていません。
-自身で http://portal/cbgrn/grn/image/cybozu/garoon2.ico  からDownloadしてください。
+## icon
+http://www.iconfinder.com/icondetails/18434/128/schedule_icon
