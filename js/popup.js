@@ -30,7 +30,7 @@ function unread(){
       write(unreadTable);
 
       var links = d.querySelectorAll('a');
-      for (var i = 0, len = links.length; len > i; i++){
+      for(var i = 0, len = links.length; len > i; i++){
         links[i].target = '_blank';
       }
     } else {
@@ -43,7 +43,7 @@ function unread(){
 function oneday(isToday){
   var onedayXhr = function(res){
     if(res && res.search(/<tr class="schedule_user_tr">[\s\S]*?<\/td>/) != -1){
-      if (isToday){
+      if(isToday){
         var onedayTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/)[0];
       } else {
         var onedayTd = res.match(/<td valign="top" class="s_user_week">[\s\S]*?<\/td>/g)[1];
@@ -56,7 +56,7 @@ function oneday(isToday){
       write(onedayTd);
 
       var links = d.querySelectorAll('a');
-      for (var i = 0, len = links.length; len > i; i++){
+      for(var i = 0, len = links.length; len > i; i++){
         links[i].target = '_blank';
       }
     } else {

@@ -24,6 +24,7 @@
     d.querySelector('#link').href = notice.link;
 
     d.querySelector('#view').addEventListener('click', function(){
+      sessionStorage.unreadCount--;
       close();
     }, false);
 

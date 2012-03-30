@@ -19,36 +19,27 @@ if(typeof opera === 'object'){
   BackGround.notification = [];
 }
 
-function notation(count, i){
-  if(count < Math.pow(10, i)){
-    var _i = i-2;
-    return Math.floor(count / Math.pow(10, _i)) + 'e' + _i;
-  } else {
-    return notation(count, ++i);
-  }
-}
 
-function badge(){
+function getUnreadCount(){
   var badgeXhr = function(res){
     if(res && res.search(/[0-9]+件/) != -1){
       var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
-      if(UNREAD_COUNT != count){
-        update(count);
+      if(sessionStorage.unreadCount != count){
+        updateBadge(count);
       }
     } else {
-      update('!');
+      updateBadge('!');
     }
-    UNREAD_COUNT = count;
+    sessionStorage.unreadCount = count;
     setTimeout(badge, 60 * 1000);
   }
   get(UNREAD_URL, badgeXhr);
 }
+getUnreadCount(); // 起動時に実行
 
 
-function update(count){
-  if(parseInt(count, 10) >= LIMIT_COUNT){
-    count = notation(parseInt(count,10), PLACE_LIMIT+1);
-  }
+function updateBadge(count){
+  // バッジの更新処理
   if(typeof opera === 'object'){
     extensionButton.badge.textContent = String(count);
   } else {
@@ -56,12 +47,9 @@ function update(count){
   }
   // てすと
   // notify(1);
-  if(UNREAD_COUNT == '!'){
-    notify(count);
-    localStorage.unreadCount = count;
-  } else {
-    notify(count - UNREAD_COUNT);
-    localStorage.unreadCount = count - UNREAD_COUNT;
+  // 初回通信成功時は通知しない
+  if(UNREAD_COUNT != '!'){
+    notify(count - sessionStorage.unreadCount);
   }
 }
 
@@ -80,11 +68,11 @@ function notify(count){
     }
 
     // show notification
-    if (typeof opera === 'object'){
-
+    if(typeof opera === 'object'){
+      // 後で作る
     } else {
       BackGround.notification = [];
-      for(var i = 0, l = unreadEvents.length; l > i; i+=5){
+      for (var i = 0, l = unreadEvents.length; l > i; i+=5){
         var info = {};
         info.event  = unreadEvents[i+1].replace(/<.*?>/g, '');
         info.status = unreadEvents[i+2].replace(/<.*?>/g, '');
@@ -111,4 +99,3 @@ function showNotify(count){
   }
 }
 
-badge();

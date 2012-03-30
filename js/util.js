@@ -4,10 +4,12 @@ var UNREAD_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list'
 var NOTICE_LIMIT = 3;
 var PLACE_LIMIT = 4;
 var LIMIT_COUNT = Math.pow(10, PLACE_LIMIT);
-var UNREAD_COUNT = '!';
 
 var w = window;
 var d = w.document;
+
+// sessionStorage
+sessionStorage.unreadCount = '!';
 
 // XMLHttpRequest
 function get(url, execute){
