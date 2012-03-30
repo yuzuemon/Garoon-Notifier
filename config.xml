@@ -2,7 +2,6 @@
 <widget xmlns='http://www.w3.org/ns/widgets' id='https://github.com/yuzuemon/Garoon-Notifier' version='1.0.0'>
   <name>Garoon Notifier</name>
   <description xml:lang='en'>for Garoon ver. 2.5.2</description>
-  <description xml:lang='ja'>Garoon ver. 2.5.2</description>
   <author href='http://d.hatena.ne.jp/Yuzuemon'>yuzuemon</author>
 
   <icon width='64' height='64' src='logo.ico' />
