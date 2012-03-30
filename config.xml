@@ -4,8 +4,8 @@
   <description xml:lang='en'>for Garoon ver. 2.5.2</description>
   <author href='http://d.hatena.ne.jp/Yuzuemon'>yuzuemon</author>
 
-  <icon width='64' height='64' src='logo.ico' />
-  <icon width='18' height='18' src='logo.ico' />
+  <icon width='64' height='64' src='logo64.ico' />
+  <icon width='18' height='18' src='logo64.ico' />
 
   <feature name='opera:share-cookies' required='false' />
   <access origin='http://portal' subdomains='true' />

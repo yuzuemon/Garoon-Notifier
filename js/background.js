@@ -21,7 +21,7 @@ if(typeof opera === 'object'){
 
 
 function getUnreadCount(){
-  var badgeXhr = function(res){
+  var unreadCountXhr = function(res){
     if(res && res.search(/[0-9]+件/) != -1){
       var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
       if(sessionStorage.unreadCount != count){
@@ -31,9 +31,9 @@ function getUnreadCount(){
       updateBadge('!');
     }
     sessionStorage.unreadCount = count;
-    setTimeout(badge, 60 * 1000);
+    setTimeout(getUnreadCount, 60 * 1000);
   }
-  get(UNREAD_URL, badgeXhr);
+  get(UNREAD_URL, unreadCountXhr);
 }
 getUnreadCount(); // 起動時に実行
 
