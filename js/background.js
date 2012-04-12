@@ -31,7 +31,7 @@ function getUnreadCount(){
       updateBadge('!');
     }
     sessionStorage.unreadCount = count;
-    setTimeout(getUnreadCount, 60 * 1000);
+    setTimeout(getUnreadCount, 30 * 1000);
   }
   get(UNREAD_URL, unreadCountXhr);
 }
