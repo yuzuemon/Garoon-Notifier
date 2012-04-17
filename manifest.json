@@ -2,7 +2,7 @@
   "name": "Garoon Notifier",
   "version": "1.0",
   "description": "Browser Extension for Garoon ver 2.5.2",
-  "icons": {"48": "./icon/logo48.png",
+  "icons": {"64": "./icon/logo64.png",
     "128": "./icon/logo128.png"},
   "content_scripts" : [{
     "js": ["./js/background.js"],
