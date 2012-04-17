@@ -9,7 +9,7 @@
     "matches": ["http://portal/cgi-bin/cbgrn/grn.cgi/schedule/view*"]
   }],
   "background_page": "index.html",
-  "options_page": "options.html",
+  "options_page": "option.html",
   "browser_action": {
     "default_title": "Garoon Notifier",
     "default_icon": "./icon/logo128.png",
