@@ -1,15 +1,13 @@
-var PORTAL_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi';
-var UNREAD_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list';
-
-var NOTICE_LIMIT = 3;
-var PLACE_LIMIT = 4;
-var LIMIT_COUNT = Math.pow(10, PLACE_LIMIT);
-
-var w = window;
-var d = w.document;
+// localStorage
+localStorage.PORTAL_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi';
+localStorage.UNREAD_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list';
+localStorage.NOTICE_LIMIT = 3;
 
 // sessionStorage
 sessionStorage.unreadCount = '!';
+
+var w = window;
+var d = w.document;
 
 // XMLHttpRequest
 function get(url, execute){

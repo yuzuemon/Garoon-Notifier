@@ -33,7 +33,7 @@ function getUnreadCount(){
     sessionStorage.unreadCount = count;
     setTimeout(getUnreadCount, 30 * 1000);
   }
-  get(UNREAD_URL, unreadCountXhr);
+  get(localStorage.UNREAD_URL, unreadCountXhr);
 }
 getUnreadCount(); // 起動時に実行
 
@@ -81,11 +81,11 @@ function notify(count){
         info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/, '')[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
         BackGround.notification.push(info);
       }
-      if(count > NOTICE_LIMIT) count = NOTICE_LIMIT;
+      if(count > localStorage.NOTICE_LIMIT) count = localStorage.NOTICE_LIMIT;
       showNotify(count);
     }
   }
-  get(UNREAD_URL, notifyXhr);
+  get(localStorage.UNREAD_URL, notifyXhr);
 }
 
 

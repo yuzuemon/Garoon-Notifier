@@ -34,10 +34,10 @@ function unread(){
         links[i].target = '_blank';
       }
     } else {
-      write('<a target="_blank" href=' + PORTAL_URL + '>ログイン画面</a>へ');
+      write('<a target="_blank" href=' + localStorage.PORTAL_URL + '>ログイン画面</a>へ');
     }
   }
-  get(UNREAD_URL, unreadXhr);
+  get(localStorage.UNREAD_URL, unreadXhr);
 }
 
 function oneday(isToday){
@@ -60,10 +60,10 @@ function oneday(isToday){
         links[i].target = '_blank';
       }
     } else {
-      write('<a target="_blank" href=' + PORTAL_URL + '>ログイン画面</a>へ');
+      write('<a target="_blank" href=' + localStorage.PORTAL_URL + '>ログイン画面</a>へ');
     }
   }
-  get(PORTAL_URL, onedayXhr);
+  get(localStorage.PORTAL_URL, onedayXhr);
 }
 
 unread();
