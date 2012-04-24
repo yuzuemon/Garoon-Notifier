@@ -52,8 +52,8 @@ function updateBadge(count){
     notificationXhr(count - localStorage.unreadCount);
   }
   // てすと用
-  if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
-  notificationXhr(count)
+  // if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
+  // notificationXhr(count)
 }
 
 
