@@ -19,6 +19,5 @@ Extensionアイコンクリック時に、未読一覧をポップアップ表�
 ### 新着通知
 ブラウザ通知にて、新着イベントを通知します。
 
-
 ## icon
 http://www.iconfinder.com/icondetails/18434/128/schedule_icon

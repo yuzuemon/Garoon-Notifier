@@ -1,3 +1,4 @@
+// init
 if(typeof opera === 'object'){
   var itemProperties = {
     title: 'Garoon Notifier',
@@ -20,6 +21,7 @@ if(typeof opera === 'object'){
 }
 
 
+// get Unread Count
 function getUnreadCount(){
   var unreadCountXhr = function(res){
     if(res && res.search(/[0-9]+件/) != -1){
@@ -35,27 +37,30 @@ function getUnreadCount(){
   }
   get(localStorage.UNREAD_URL, unreadCountXhr);
 }
-getUnreadCount(); // 起動時に実行
+getUnreadCount();
+
 
 
 function updateBadge(count){
-  // バッジの更新処理
   if(typeof opera === 'object'){
     extensionButton.badge.textContent = String(count);
   } else {
     chrome.browserAction.setBadgeText({text: String(count)});
   }
-  // てすと
-  // notify(1);
-  // 初回通信成功時は通知しない
+  // Not notify at first connection
   if(sessionStorage.unreadCount != '!'){
-    notify(count - sessionStorage.unreadCount);
+    if(count > localStorage.NOTICE_LIMIT) count = localStorage.NOTICE_LIMIT;
+    notificationXhr(count - sessionStorage.unreadCount);
   }
+  // てすと用
+  // if(count > localStorage.NOTICE_LIMIT) count = localStorage.NOTICE_LIMIT;
+  // notificationXhr(count)
 }
 
 
-function notify(count){
-  var notifyXhr = function(res){
+// XHR for notification
+function notificationXhr(count){
+  var notificationXHR = function(res){
     var unreadEvents = '';
     if(res && res.search(/<table class="list_column">[\s\S]*?<\/table>/) != -1){
       var unreadTable = res.match(/<table class="list_column">[\s\S]*?<\/table>/)[0];
@@ -64,10 +69,10 @@ function notify(count){
       unreadTable = unreadTable.replace(/<img .*?>/g, '');
       unreadTable = unreadTable.replace(/<a class="" href="\/cgi-bin/g, '<a target="_blank" href="http://portal/cgi-bin');
       unreadTable = unreadTable.replace(/javascript:popupWin\('/g, 'javascript:window.open(\'http://portal');
-      unreadEvents = unreadTable.match(/<td.*?<\/td>/gm);
+      unreadEvents = unreadTable.match(/<td[\s\S]*?<\/td>/gm);
     }
 
-    // show notification
+    // make notificationList
     if(typeof opera === 'object'){
       // 後で作る
     } else {
@@ -78,24 +83,21 @@ function notify(count){
         info.status = unreadEvents[i+2].replace(/<.*?>/g, '');
         info.user   = unreadEvents[i+3].replace(/<.*?>/g, '');
         info.time   = unreadEvents[i+4].replace(/<.*?>/g, '');
-        info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/, '')[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
+        info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/gm)[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
         BackGround.notification.push(info);
       }
-      if(count > localStorage.NOTICE_LIMIT) count = localStorage.NOTICE_LIMIT;
-      showNotify(count);
+      showNotificationWindow(count);
     }
   }
-  get(localStorage.UNREAD_URL, notifyXhr);
+  get(localStorage.UNREAD_URL, notificationXHR);
 }
 
 
-function showNotify(count){
+// show notification window
+function showNotificationWindow(count){
   if(count > 0 && BackGround.notification.length > 0){
-    // var info = BackGround.notification.pop();
-    // var text = info.title + info.status + info.time;
-    // webkitNotifications.createNotification('', '', text).show();
     webkitNotifications.createHTMLNotification('/notification.html').show();
-    setTimeout(showNotify(--count), 1000);
+    setTimeout(showNotificationWindow(--count), 1000);
   }
 }
 
