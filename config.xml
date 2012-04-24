@@ -1,11 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns='http://www.w3.org/ns/widgets' id='https://github.com/yuzuemon/Garoon-Notifier' version='1.0.0'>
+<widget xmlns='http://www.w3.org/ns/widgets'
+        id='https://github.com/yuzuemon/Garoon-Notifier'
+        version='1.0.0'>
+
   <name>Garoon Notifier</name>
   <description xml:lang='en'>for Garoon ver. 2.5.2</description>
+  <license href='http://sourceforge.jp/projects/opensource/wiki/licenses%2FMIT_license'>MIT License</license>
   <author href='http://d.hatena.ne.jp/Yuzuemon'>yuzuemon</author>
 
-  <icon width='128' height='128' src='./icon/logo128.png' />
-  <icon width='64' height='64' src='./icon/logo64.png' />
+  <icon width='64' height='64' src='icon/logo64.png' />
+  <icon width='128' height='128' src='icon/logo128.png' />
+
+  <content src='background/background.html'
+           encoding='utf-8'
+           type='text/html'/>
 
   <feature name='opera:share-cookies' required='false' />
   <access origin='http://portal' subdomains='true' />
