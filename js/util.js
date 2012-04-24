@@ -1,7 +1,7 @@
 // localStorage
 localStorage.PORTAL_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi';
 localStorage.UNREAD_URL = 'http://portal/cgi-bin/cbgrn/grn.cgi/notification/pending_list';
-localStorage.NOTICE_LIMIT = 3;
+localStorage.NOTIFICATION_LIMIT = 3;
 
 // sessionStorage
 sessionStorage.unreadCount = '!';

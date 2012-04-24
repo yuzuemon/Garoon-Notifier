@@ -49,11 +49,11 @@ function updateBadge(count){
   }
   // Not notify at first connection
   if(sessionStorage.unreadCount != '!'){
-    if(count > localStorage.NOTICE_LIMIT) count = localStorage.NOTICE_LIMIT;
+    if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
     notificationXhr(count - sessionStorage.unreadCount);
   }
   // てすと用
-  // if(count > localStorage.NOTICE_LIMIT) count = localStorage.NOTICE_LIMIT;
+  // if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
   // notificationXhr(count)
 }
 
