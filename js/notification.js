@@ -1,8 +1,8 @@
 (function(){
   window.addEventListener('load', function(){
-    var BackGround = chrome.extension.getBackgroundPage();
-    var notice = BackGround.notification.shift();
-    var status = notice.status;
+    var notificationList = JSON.parse(localStorage.notificationList);
+    var info = notificationList.shift();
+    var status = info.status;
     var lebel = d.querySelector('#label');
     if(status == '登録'){
       label.className = 'label-new';
@@ -18,15 +18,17 @@
       label.innerHTML = 'Comment';
       d.querySelector('#status').innerText = status;
     }
-    d.querySelector('#event').innerText = notice.event;
-    d.querySelector('#time').innerText = notice.time;
-    d.querySelector('#user').innerText = notice.user;
-    d.querySelector('#link').href = notice.link;
+    d.querySelector('#event').innerText = info.event;
+    d.querySelector('#time').innerText = info.time;
+    d.querySelector('#user').innerText = info.user;
+    d.querySelector('#link').href = info.link;
 
     d.querySelector('#view').addEventListener('click', function(){
-      sessionStorage.unreadCount--;
+      // localStorage.unreadCount--;
       close();
     }, false);
+
+    localStorage.notificationList = JSON.stringify(notificationList);
 
   }, false);
 })();

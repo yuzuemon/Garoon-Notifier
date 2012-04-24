@@ -1,4 +1,6 @@
 // init
+localStorage.unreadCount = '!';
+
 if(typeof opera === 'object'){
   var itemProperties = {
     title: 'Garoon Notifier',
@@ -15,10 +17,8 @@ if(typeof opera === 'object'){
   }
   var extensionButton = opera.contexts.toolbar.createItem(itemProperties);
   opera.contexts.toolbar.addItem(extensionButton);
-} else {
-  var BackGround = this;
-  BackGround.notification = [];
 }
+
 
 
 // get Unread Count
@@ -26,19 +26,18 @@ function getUnreadCount(){
   var unreadCountXhr = function(res){
     if(res && res.search(/[0-9]+件/) != -1){
       var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
-      if(sessionStorage.unreadCount != count){
+      if(localStorage.unreadCount != count){
         updateBadge(count);
       }
     } else {
       updateBadge('!');
     }
-    sessionStorage.unreadCount = count;
+    localStorage.unreadCount = count;
     setTimeout(getUnreadCount, 30 * 1000);
   }
   get(localStorage.UNREAD_URL, unreadCountXhr);
 }
 getUnreadCount();
-
 
 
 function updateBadge(count){
@@ -48,13 +47,13 @@ function updateBadge(count){
     chrome.browserAction.setBadgeText({text: String(count)});
   }
   // Not notify at first connection
-  if(sessionStorage.unreadCount != '!'){
+  if(localStorage.unreadCount != '!'){
     if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
-    notificationXhr(count - sessionStorage.unreadCount);
+    notificationXhr(count - localStorage.unreadCount);
   }
   // てすと用
-  // if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
-  // notificationXhr(count)
+  if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
+  notificationXhr(count)
 }
 
 
@@ -76,7 +75,7 @@ function notificationXhr(count){
     if(typeof opera === 'object'){
       // 後で作る
     } else {
-      BackGround.notification = [];
+      notificationList = [];
       for (var i = 0, l = unreadEvents.length; l > i; i+=5){
         var info = {};
         info.event  = unreadEvents[i+1].replace(/<.*?>/g, '');
@@ -84,8 +83,10 @@ function notificationXhr(count){
         info.user   = unreadEvents[i+3].replace(/<.*?>/g, '');
         info.time   = unreadEvents[i+4].replace(/<.*?>/g, '');
         info.link   = unreadEvents[i+1].match(/http:\/\/.*bdate/gm)[0].replace(/&amp;bdate/, '').replace(/&amp;/, '&');
-        BackGround.notification.push(info);
+        notificationList.push(info);
       }
+      localStorage.notificationList = JSON.stringify(notificationList);
+      console.log(notificationList)
       showNotificationWindow(count);
     }
   }
@@ -95,7 +96,7 @@ function notificationXhr(count){
 
 // show notification window
 function showNotificationWindow(count){
-  if(count > 0 && BackGround.notification.length > 0){
+  if(count > 0){
     webkitNotifications.createHTMLNotification('/notification.html').show();
     setTimeout(showNotificationWindow(--count), 1000);
   }
