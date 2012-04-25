@@ -3,19 +3,19 @@
   "version": "1.0",
   "description": "Browser Extension for Garoon ver 2.5.2",
   "icons": {
-    "64": "./icon/logo64.png",
-    "128": "./icon/logo128.png"
+    "64": "./images/logo64.png",
+    "128": "./images/logo128.png"
   },
   "content_scripts" : [{
-    "js": ["./js/background.js"],
+    "js": ["./background/background.js"],
     "matches": ["http://portal/cgi-bin/cbgrn/grn.cgi/schedule/view*"]
   }],
-  "background_page": "index.html",
-  "options_page": "option.html",
+  "background_page": "./background/index.html",
+  "options_page": "./background/option.html",
   "browser_action": {
     "default_title": "Garoon Notifier",
-    "default_icon": "./icon/logo128.png",
-    "popup": "popup.html"
+    "default_icon": "./images/logo128.png",
+    "popup": "./background/popup.html"
   },
   "permissions": ["http://portal/", "notifications"]
 }
