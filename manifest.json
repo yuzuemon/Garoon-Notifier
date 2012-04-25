@@ -10,7 +10,7 @@
     "js": ["./background/background.js"],
     "matches": ["http://portal/cgi-bin/cbgrn/grn.cgi/schedule/view*"]
   }],
-  "background_page": "./background/index.html",
+  "background_page": "./background/background.html",
   "options_page": "./background/option.html",
   "browser_action": {
     "default_title": "Garoon Notifier",
