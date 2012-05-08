@@ -1,7 +1,7 @@
 // init
 localStorage.unreadCount = '!';
 
-if(typeof opera === 'object'){
+if (typeof opera === 'object') {
   var itemProperties = {
     title: 'Garoon Notifier',
     icon: 'logo.ico',
@@ -24,15 +24,14 @@ if(typeof opera === 'object'){
 // get Unread Count
 function getUnreadCount(){
   var unreadCountXhr = function(res){
-    if(res && res.search(/[0-9]+件/) != -1){
+    if (res && res.search(/[0-9]+件/) != -1) {
       var count = parseInt(res.match(/[0-9]+件/)[0].replace('件', ''), 10);
-      if(localStorage.unreadCount != count){
+      if (localStorage.unreadCount != count) {
         updateBadge(count);
       }
     } else {
       updateBadge('!');
     }
-    localStorage.unreadCount = count;
     setTimeout(getUnreadCount, 30 * 1000);
   }
   get(localStorage.UNREAD_URL, unreadCountXhr);
@@ -40,28 +39,29 @@ function getUnreadCount(){
 getUnreadCount();
 
 
-function updateBadge(count){
-  if(typeof opera === 'object'){
+function updateBadge(count) {
+  if (typeof opera === 'object') {
     extensionButton.badge.textContent = String(count);
   } else {
     chrome.browserAction.setBadgeText({text: String(count)});
   }
   // Not notify at first connection
-  if(localStorage.unreadCount != '!'){
-    if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
+  if (localStorage.unreadCount != '!') {
+    if (count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
     notificationXhr(count - localStorage.unreadCount);
+    localStorage.unreadCount = count;
   }
   // てすと用
-  // if(count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
+  // if (count > localStorage.NOTIFICATION_LIMIT) count = localStorage.NOTIFICATION_LIMIT;
   // notificationXhr(count)
 }
 
 
 // XHR for notification
-function notificationXhr(count){
-  var notificationXHR = function(res){
+function notificationXhr(count) {
+  var notificationXHR = function(res) {
     var unreadEvents = '';
-    if(res && res.search(/<table class="list_column">[\s\S]*?<\/table>/) != -1){
+    if (res && res.search(/<table class="list_column">[\s\S]*?<\/table>/) != -1) {
       var unreadTable = res.match(/<table class="list_column">[\s\S]*?<\/table>/)[0];
       unreadTable = unreadTable.replace(/<script .*?>/g, '');
       unreadTable = unreadTable.replace(/<button .*?>/g, '');
@@ -72,11 +72,11 @@ function notificationXhr(count){
     }
 
     // make notificationList
-    if(typeof opera === 'object'){
+    if (typeof opera === 'object') {
       // 後で作る
     } else {
       notificationList = [];
-      for (var i = 0, l = unreadEvents.length; l > i; i+=5){
+      for (var i = 0, l = unreadEvents.length; l > i; i+=5) {
         var info = {};
         info.event  = unreadEvents[i+1].replace(/<.*?>/g, '');
         info.status = unreadEvents[i+2].replace(/<.*?>/g, '');
@@ -96,8 +96,8 @@ function notificationXhr(count){
 
 // show notification window
 function showNotificationWindow(count){
-  if(count > 0){
-    webkitNotifications.createHTMLNotification('/notification.html').show();
+  if (count > 0){
+    webkitNotifications.createHTMLNotification('./notification.html').show();
     setTimeout(showNotificationWindow(--count), 1000);
   }
 }
