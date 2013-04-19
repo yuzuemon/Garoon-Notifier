@@ -8,18 +8,18 @@
     "128": "./images/logo128.png"
   },
   "content_scripts" : [{
-    "js": ["./background/background.js"],
+    "js": ["./js/background.js"],
     "matches": ["http://portal/cgi-bin/cbgrn/grn.cgi/schedule/view*"]
   }],
   "background": {
-    "scripts": ["./background/common.js", "./background/background.js"],
+    "scripts": ["./js/common.js", "./js/background.js"],
     "persistent": false
   },
-  "options_page": "./background/option.html",
+  "options_page": "./option.html",
   "browser_action": {
     "default_title": "Garoon Notifier",
     "default_icon": "./images/logo128.png",
-    "default_popup": "./background/popup.html"
+    "default_popup": "./popup.html"
   },
   "permissions": ["http://portal/", "notifications"]
 }
